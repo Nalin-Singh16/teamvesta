@@ -1,0 +1,19 @@
+.Chart {
+    height: 70vh;
+    width: 95vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.total {
+    font-weight: 600;
+}
+
+.departments {
+    width: 68%;
+}

@@ -65,8 +65,7 @@ const Linechart = () => {
             <p className="total">Total Requests: {sum}</p>
             <div className="departments">
                 <span>
-                    List of unique department names across all Hotels:
-                    {departmentNames.map((department, index) => `${department}${index < departmentNames.length - 1 ? ', ' : ''}`)}
+                    List of unique department names across all Hotels: {departmentNames.map((department, index) => `${department}${index < departmentNames.length - 1 ? ', ' : ''}`)}
                 </span>
             </div>
         </div>

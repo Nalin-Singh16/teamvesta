@@ -3,10 +3,10 @@ import Linechart from './Components/table';
 
 function App() {
   return (
-    <div >
-      Hello
+    <>
+      <h1>Assignment: Requests per Hotel</h1>
       <Linechart />
-    </div>
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import './table.css';
-import React from "react";
+import React, { useEffect } from "react";
 import Chart from "react-apexcharts";
+import axios from 'axios';
 
 const Linechart = () => {
     const options = {
@@ -17,7 +18,11 @@ const Linechart = () => {
             data: [30, 40, 45, 50, 49, 60, 70, 91]
         }
     ]
-
+    useEffect(() => {
+        axios.get('https://checkinn.co/api/v1/int/requests').then(res => {
+            console.log(res)
+        })
+    })
 
 
     return (

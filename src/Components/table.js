@@ -1,45 +1,76 @@
 import './table.css';
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from 'react';
 import Chart from "react-apexcharts";
 import axios from 'axios';
 
 const Linechart = () => {
-    const options = {
+    const [sum, setSum] = useState(0);
+    const [departmentNames, setDepartments] = useState([]);
+    const [options, setOptions] = useState({
         chart: {
-            id: "basic-line"
+            id: 'apexchart-example',
         },
         xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-        }
-    }
-    const series = [
-        {
-            name: "series-1",
-            data: [30, 40, 45, 50, 49, 60, 70, 91]
-        }
-    ]
-    useEffect(() => {
-        axios.get('https://checkinn.co/api/v1/int/requests').then(res => {
-            console.log(res)
-        })
-    })
+            categories: [],
+        },
+    });
+    const [series, setSeries] = useState([{
+        name: 'series-1',
+        data: [],
+    }]);
 
+    useEffect(() => {
+        axios.get('https://checkinn.co/api/v1/int/requests')
+            .then(res => {
+                const hotelRequestCounts = res.data.requests.reduce((acc, { hotel }) => {
+                    acc[hotel.name] = (acc[hotel.name] || 0) + 1;
+                    return acc;
+                }, {});
+
+                const departments = res.data.requests.reduce((acc, { desk }) => {
+                    acc[desk.name] = (acc[desk.name] || 0) + 1;
+                    return acc;
+                }, {});
+
+                const hotelNames = Object.keys(hotelRequestCounts);
+                const totalRequests = Object.values(hotelRequestCounts);
+                const departmentNames = Object.keys(departments);
+
+                setOptions(prevOptions => ({
+                    ...prevOptions,
+                    xaxis: { categories: hotelNames },
+                }));
+
+                setSeries([{
+                    name: 'series-1',
+                    data: totalRequests,
+                }]);
+
+                setSum(totalRequests.reduce((acc, value) => acc + value, 0));
+                setDepartments(departmentNames);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }, []);
 
     return (
-        <div className="app">
-            <div className="row">
-                <div className="mixed-chart">
-                    <Chart
-                        options={options}
-                        series={series}
-                        type="line"
-                        width="500"
-                    />
-                </div>
+        <div className='Chart'>
+            <Chart
+                options={options}
+                series={series}
+                type="line"
+                width="900"
+            />
+            <p className="total">Total Requests: {sum}</p>
+            <div className="departments">
+                <span>
+                    List of unique department names across all Hotels:
+                    {departmentNames.map((department, index) => `${department}${index < departmentNames.length - 1 ? ', ' : ''}`)}
+                </span>
             </div>
         </div>
     );
-
-}
+};
 
 export default Linechart;

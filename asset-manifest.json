@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/teamvesta/static/css/main.b863ae32.css",
+    "main.css": "/teamvesta/static/css/main.d33c30f8.css",
     "main.js": "/teamvesta/static/js/main.e63087c7.js",
     "index.html": "/teamvesta/index.html",
-    "main.b863ae32.css.map": "/teamvesta/static/css/main.b863ae32.css.map",
+    "main.d33c30f8.css.map": "/teamvesta/static/css/main.d33c30f8.css.map",
     "main.e63087c7.js.map": "/teamvesta/static/js/main.e63087c7.js.map"
   },
   "entrypoints": [
-    "static/css/main.b863ae32.css",
+    "static/css/main.d33c30f8.css",
     "static/js/main.e63087c7.js"
   ]
 }
